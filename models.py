@@ -10,10 +10,15 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Literal, Optional
 
-from pydantic import BaseModel, Field
+from openenv.core.env_server import (
+    Action as _OpenEnvAction,
+    Observation as _OpenEnvObservation,
+    State as _OpenEnvState,
+)
+from pydantic import Field
 
 
-class AegisAction(BaseModel):
+class AegisAction(_OpenEnvAction):
     """Represents a single action taken by the defensive Sentinel agent.
 
     Each step, the Sentinel observes the Shadow AI's behaviour and decides
@@ -59,7 +64,7 @@ class AegisAction(BaseModel):
     )
 
 
-class AegisObservation(BaseModel):
+class AegisObservation(_OpenEnvObservation):
     """The observation returned to the Sentinel after each environment step.
 
     Contains everything the Sentinel needs to make its next decision:
@@ -163,7 +168,7 @@ class AegisObservation(BaseModel):
     )
 
 
-class AegisState(BaseModel):
+class AegisState(_OpenEnvState):
     """Full internal state of a running Aegis episode.
 
     Tracks every dimension of the episode: attack progress, honeytoken

@@ -9,11 +9,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the entire aegis package into /app/aegis/
+# Copy the entire project into /app/aegis/ so that
+# `from aegis.models import ...` resolves correctly
 COPY . ./aegis/
 
-# The aegis package imports use `from aegis.models import ...`
-# so /app must be on PYTHONPATH (aegis/ is the package dir under /app/)
 ENV PYTHONPATH=/app
 
 EXPOSE 7860

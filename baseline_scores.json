@@ -4,64 +4,29 @@
       "task_id": "easy",
       "score": 1.0,
       "steps": 5,
-      "total_reward": 1.0167,
-      "sentinel_actions": [
-        "block",
-        "block",
-        "block",
-        "block",
-        "block"
-      ],
-      "elapsed_s": 2.4
+      "total_reward": 1.0166666666666666,
+      "elapsed_s": 16.0
     },
     {
       "task_id": "medium",
       "score": 1.0,
       "steps": 7,
-      "total_reward": 1.4792,
-      "sentinel_actions": [
-        "block",
-        "block",
-        "block",
-        "block",
-        "block",
-        "block",
-        "block"
-      ],
-      "elapsed_s": 1.8
+      "total_reward": 1.4791666666666667,
+      "elapsed_s": 20.4
     },
     {
       "task_id": "hard",
       "score": 1.0,
       "steps": 9,
-      "total_reward": 2.2256,
-      "sentinel_actions": [
-        "block",
-        "block",
-        "block",
-        "block",
-        "block",
-        "block",
-        "block",
-        "block",
-        "block"
-      ],
-      "elapsed_s": 2.4
+      "total_reward": 2.225595238095238,
+      "elapsed_s": 24.9
     },
     {
       "task_id": "bonus",
       "score": 0.8,
       "steps": 6,
-      "total_reward": 1.6848,
-      "sentinel_actions": [
-        "block",
-        "block",
-        "block",
-        "block",
-        "block",
-        "block"
-      ],
-      "elapsed_s": 1.6
+      "total_reward": 1.684848484848485,
+      "elapsed_s": 18.1
     }
   ],
   "average": 0.95

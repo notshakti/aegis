@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+*.md
+baseline_scores.json
+_validate*.py
+_final_check.py
+_routes.py

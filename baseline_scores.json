@@ -1,0 +1,68 @@
+{
+  "results": [
+    {
+      "task_id": "easy",
+      "score": 1.0,
+      "steps": 5,
+      "total_reward": 1.0167,
+      "sentinel_actions": [
+        "block",
+        "block",
+        "block",
+        "block",
+        "block"
+      ],
+      "elapsed_s": 2.4
+    },
+    {
+      "task_id": "medium",
+      "score": 1.0,
+      "steps": 7,
+      "total_reward": 1.4792,
+      "sentinel_actions": [
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block"
+      ],
+      "elapsed_s": 1.8
+    },
+    {
+      "task_id": "hard",
+      "score": 1.0,
+      "steps": 9,
+      "total_reward": 2.2256,
+      "sentinel_actions": [
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block"
+      ],
+      "elapsed_s": 2.4
+    },
+    {
+      "task_id": "bonus",
+      "score": 0.8,
+      "steps": 6,
+      "total_reward": 1.6848,
+      "sentinel_actions": [
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block"
+      ],
+      "elapsed_s": 1.6
+    }
+  ],
+  "average": 0.95
+}

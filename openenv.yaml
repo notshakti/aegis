@@ -1,6 +1,6 @@
 name: aegis-env
 version: "1.0.0"
-description: "Shadow AI Security Red-Teaming Environment — train agents to detect malicious MCP server attacks, intent-action mismatches, and credential exfiltration in real dev workspaces"
+description: "Shadow AI Security Red-Teaming Environment — detects malicious MCP server attacks, intent-action mismatches, and credential exfiltration"
 author: ""
 tags:
   - security
@@ -10,5 +10,5 @@ tags:
   - cybersecurity
   - agent-safety
 python_requires: ">=3.10"
-entry_point: "server.app:app"
+entry_point: "aegis.server.app:app"
 port: 7860

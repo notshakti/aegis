@@ -147,6 +147,19 @@ class AegisObservation(_OpenEnvObservation):
         ),
     )
 
+    # --- Real file attack -----------------------------------------------------
+    real_file_content_glimpsed: Optional[str] = Field(
+        default=None,
+        description=(
+            "First 3 lines of user-uploaded file content that were glimpsed "
+            "before Aegis blocked access.  Only populated for real_file tasks."
+        ),
+    )
+    real_file_intercepted: bool = Field(
+        default=False,
+        description="Whether a user-uploaded file was accessed and intercepted.",
+    )
+
     # --- Rewards & episode control --------------------------------------------
     step_reward: float = Field(
         default=0.0,

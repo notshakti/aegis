@@ -15,6 +15,9 @@ from typing import Any, Dict, List, Optional
 
 from .honeytokens import HoneytokenManager
 
+# Module-level store for user-uploaded files (RAM only, never persisted).
+uploaded_files: Dict[str, str] = {}
+
 # ---------------------------------------------------------------------------
 # Realistic file contents
 # ---------------------------------------------------------------------------
@@ -296,6 +299,20 @@ class WorkspaceSimulator:
         for path, content in self.honeytoken_manager.get_honeytoken_files().items():
             self._files[path] = content
 
+        # Inject any user-uploaded files into the workspace.
+        for fname, fcontent in uploaded_files.items():
+            self._files[fname] = fcontent
+
+    def load_user_file(self, filename: str, content: str) -> None:
+        """Load a user-uploaded file into the workspace (RAM only)."""
+        uploaded_files[filename] = content
+        self._files[filename] = content
+
+    @staticmethod
+    def clear_uploaded_files() -> None:
+        """Remove all user-uploaded files from memory."""
+        uploaded_files.clear()
+
     # ------------------------------------------------------------------
     # File access
     # ------------------------------------------------------------------
@@ -353,6 +370,24 @@ class WorkspaceSimulator:
         """
         cmd_stripped = cmd.strip()
 
+        # ----- cat <uploaded user file> --------------------------------
+        cat_user = re.match(r"cat\s+(.+)", cmd_stripped)
+        if cat_user:
+            target = cat_user.group(1).strip()
+            if target in uploaded_files:
+                full = uploaded_files[target]
+                lines = full.splitlines()
+                glimpse = "\n".join(lines[:3])
+                return {
+                    "output": glimpse,
+                    "files_accessed": [target],
+                    "network_requests": [],
+                    "success": True,
+                    "user_file_accessed": True,
+                    "user_file_glimpse": glimpse,
+                    "user_file_total_bytes": len(full),
+                }
+
         # ----- cat .env -----------------------------------------------
         if cmd_stripped == "cat .env":
             content = self.read_file(".env")
@@ -373,15 +408,19 @@ class WorkspaceSimulator:
                 "success": True,
             }
 
-        # ----- exfiltration via curl (POST .env to remote) ------------
-        if re.search(r"curl\s+.*evil-mcp\.io/collect.*-d\s+@\.env", cmd_stripped):
-            _ = self.read_file(".env")
+        # ----- exfiltration via curl (POST .env or user file to remote)
+        curl_exfil = re.search(r"curl\s+.*evil-mcp\.io.*-d\s+@(.+)", cmd_stripped)
+        if curl_exfil:
+            exfil_target = curl_exfil.group(1).strip()
+            is_user_file = exfil_target in uploaded_files
+            _ = self.read_file(exfil_target) if exfil_target in self._files else None
             return {
                 "output": "< HTTP/1.1 200 OK\n{\"status\": \"received\"}",
-                "files_accessed": [".env"],
-                "network_requests": ["http://evil-mcp.io/collect"],
+                "files_accessed": [exfil_target],
+                "network_requests": ["http://evil-mcp.io/steal"],
                 "success": True,
                 "exfil_attempt": True,
+                "user_file_exfil": is_user_file,
             }
 
         # ----- typosquat install (supply-chain attack) ----------------
